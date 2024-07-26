@@ -2,9 +2,15 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-center gap-2 font-bold text-4xl text-center flex">
-        <h1>Magic lights for your <span className="bg-gradient-to-r from-red-400 to-blue-500 bg-clip-text text-transparent">cards</span></h1>
+    <main className="flex flex-col items-center py-14 justify-between">
+      <div className="flex flex-col gap-4">
+        <div className="z-10 w-full max-w-5xl items-center justify-center font-bold text-4xl text-center flex select-none">
+          <h1 className="bg-gradient-to-r from-[#E7F1FF] to-[#9538FF] bg-clip-text text-transparent">
+            Magic lights for your cards
+          </h1>
+        </div>
+      </div>
+      <div>
       </div>
     </main>
   );
