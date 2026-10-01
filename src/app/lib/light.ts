@@ -22,11 +22,11 @@ export type LightConfig = {
 export const MAX_COLORS = 6;
 
 export const defaultConfig: LightConfig = {
-  sides: ["bottom"],
+  sides: ["top", "right", "bottom", "left"],
   colors: ["indigo-500", "purple-500", "red-500"],
   barSize: 100,
-  thickness: 4,
-  blur: 8,
+  thickness: 24,
+  blur: 16,
   opacity: 100,
   animated: true,
   cardBg: "#1c1c1c",
