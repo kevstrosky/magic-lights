@@ -1,5 +1,11 @@
 import Editor from "./components/editor";
-import { AUTHOR, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "./lib/site";
+import {
+  AUTHOR,
+  LAST_UPDATED,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "./lib/site";
 
 // Structured data so search engines can show the page as a free web app.
 const jsonLd = {
@@ -18,13 +24,24 @@ import ThemeToggle from "./components/theme-toggle";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center gap-10 py-14">
+    <main className="flex min-h-screen flex-col items-center gap-10 pb-6 pt-8">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <ThemeToggle />
       <Editor footer={<Footer />} />
+      <p className="-mt-6 px-4 text-center text-xs text-ui-subtle">
+        Last update:{" "}
+        <time dateTime={LAST_UPDATED}>
+          {new Date(`${LAST_UPDATED}T00:00:00Z`).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            timeZone: "UTC",
+          })}
+        </time>
+      </p>
     </main>
   );
 }

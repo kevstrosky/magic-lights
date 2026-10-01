@@ -13,3 +13,6 @@ export const SITE_DESCRIPTION =
   "Free online tool to design glowing gradient borders for your cards. Pick sides, colors, blur and thickness, then copy the Tailwind CSS or plain CSS code.";
 
 export const AUTHOR = { name: "kevstrosky", url: "https://kevinochoa.dev" };
+
+// Shown at the bottom of the page; update it when publishing changes.
+export const LAST_UPDATED = "2026-10-01";
