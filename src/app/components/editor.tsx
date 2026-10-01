@@ -13,6 +13,7 @@ import {
   PanelRightOpen,
   Percent,
   Plus,
+  RotateCcw,
   Square,
   Sun,
 } from "lucide-react";
@@ -26,10 +27,10 @@ import {
   CARD_THEMES,
   cssBlocks,
   defaultConfig,
+  gradientStops,
   MAX_COLORS,
   SIDES,
   randomColors,
-  toHex,
   tailwindBlocks,
   type CodeBlock,
   type LightConfig,
@@ -59,7 +60,7 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
   const update = <K extends keyof LightConfig>(key: K, value: LightConfig[K]) =>
     setConfig((c) => ({ ...c, [key]: value }));
   const randomize = () =>
-    setConfig((c) => ({ ...c, colors: randomColors(c.colors.length) }));
+    setConfig((c) => ({ ...c, colors: randomColors(c.colors.length || 2) }));
   const setColor = (index: number, value: string) =>
     setConfig((c) => ({
       ...c,
@@ -86,6 +87,9 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
   const wide = useIsWide();
 
   const [dark, setDark] = useState(true);
+  // Back to the starting design, keeping the card colors of the current theme.
+  const reset = () =>
+    setConfig({ ...defaultConfig, ...CARD_THEMES[dark ? "dark" : "light"] });
 
   // Keep the card and the theme switch in step with the site theme.
   useEffect(() => {
@@ -101,7 +105,7 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
     return () => observer.disconnect();
   }, []);
 
-  const gradient = `linear-gradient(to right, ${config.colors.map(toHex).join(", ")})`;
+  const gradient = `linear-gradient(to right, ${gradientStops(config.colors)})`;
   const collapsed = wide ? { width: 0 } : { height: 0 };
   const expanded = wide ? { width: "auto" } : { height: "auto" };
 
@@ -109,10 +113,14 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
     <div className="flex w-full max-w-[1440px] flex-col items-center gap-10 px-4">
       <div className="flex flex-col items-center gap-3 text-center">
         <h1
-          className={`select-none bg-clip-text text-4xl font-bold text-transparent ${
-            config.animated ? "animate-text" : ""
-          }`}
-          style={{ backgroundImage: gradient }}
+          className={`select-none text-4xl font-bold ${
+            config.colors.length
+              ? "bg-clip-text text-transparent"
+              : "text-ui-fg"
+          } ${config.animated ? "animate-text" : ""}`}
+          style={
+            config.colors.length ? { backgroundImage: gradient } : undefined
+          }
         >
           Magic lights for your cards
         </h1>
@@ -167,7 +175,7 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
                       label={COLOR_LABELS[i] ?? `Color ${i + 1}`}
                       value={color}
                       onChange={(v) => setColor(i, v)}
-                      onRemove={i >= 2 ? () => removeColor(i) : undefined}
+                      onRemove={() => removeColor(i)}
                     />
                   ))}
                   {config.colors.length < MAX_COLORS && (
@@ -294,6 +302,19 @@ export default function Editor({ footer }: { footer?: ReactNode }) {
                   </button>
                 ))}
               </div>
+            </Field>
+
+            <Divider />
+
+            <Field label="More settings">
+              <button
+                type="button"
+                onClick={reset}
+                className="flex h-8 items-center justify-center gap-1.5 rounded-md bg-ui-surface text-xs font-medium text-ui-muted transition-colors hover:bg-ui-hover hover:text-ui-fg"
+              >
+                <RotateCcw size={14} />
+                Reset to default
+              </button>
             </Field>
           </section>
 

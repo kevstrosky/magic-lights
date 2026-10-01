@@ -20,11 +20,18 @@ const Card = ({ config, onRandom, footer }: Props) => {
   const light = isLightColor(config.cardBg);
   const titleColor = light ? "text-[#111111]" : "text-white";
   const mutedColor = light ? "text-[#6B6B72]" : "text-[#9D9D9D]";
-  // Lets the button's hover gradient follow the current light colors.
+  // Lets the button's hover gradient follow the current light colors
+  // (plain text color when every color has been removed).
+  const stop = (i: number) =>
+    config.colors.length
+      ? toHex(config.colors[i])
+      : light
+        ? "#111111"
+        : "#ffffff";
   const vars = {
-    "--light-from": toHex(config.colors[0]),
-    "--light-via": toHex(config.colors[Math.floor(config.colors.length / 2)]),
-    "--light-to": toHex(config.colors[config.colors.length - 1]),
+    "--light-from": stop(0),
+    "--light-via": stop(Math.floor(config.colors.length / 2)),
+    "--light-to": stop(config.colors.length - 1),
   } as CSSProperties;
 
   return (

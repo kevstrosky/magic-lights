@@ -221,7 +221,14 @@ function colorClass(prefix: string, value: string) {
 }
 
 // from/via/to covers up to three colors; more need an arbitrary gradient.
+// Color stops for a CSS gradient; a single color is repeated so the gradient stays valid.
+export function gradientStops(colors: string[]) {
+  const stops = colors.map(cssColor);
+  return (stops.length === 1 ? [stops[0], stops[0]] : stops).join(", ");
+}
+
 function gradientTw(colors: string[], direction: "right" | "bottom") {
+  if (colors.length === 1) return [colorClass("bg", colors[0])];
   if (colors.length > 3) {
     const to = direction === "right" ? "to_right" : "to_bottom";
     const stops = colors.map((c) => cssColor(c).replace(/\s+/g, "")).join(",");
@@ -259,6 +266,9 @@ function geometry(c: LightConfig): {
   css: Decl[];
   direction: "right" | "bottom";
 }[] {
+  // No colors, no light.
+  if (!c.colors.length) return [];
+
   const t = c.thickness;
   const half = t / 2;
   const r = c.radius;
@@ -337,7 +347,7 @@ export function buildLight(c: LightConfig) {
 
   const background = (direction: "right" | "bottom"): Decl => [
     "background-image",
-    `linear-gradient(to ${direction}, ${c.colors.map(cssColor).join(", ")})`,
+    `linear-gradient(to ${direction}, ${gradientStops(c.colors)})`,
   ];
 
   const lights: Light[] = geometry(c).map((g) => {
@@ -516,7 +526,9 @@ function lightSpec(c: LightConfig) {
       : `${c.barSize}% of each side, centered`;
   return [
     `- Light on: ${sides}`,
-    `- Gradient colors, in order: ${c.colors.map(describeColor).join(" → ")}`,
+    c.colors.length
+      ? `- Gradient colors, in order: ${c.colors.map(describeColor).join(" → ")}`
+      : "- Gradient colors: none (no light)",
     `- Bar length: ${length}`,
     `- Thickness: ${c.thickness}px, centered on the card's edge (half under the card)`,
     `- Blur: ${c.blur}px · Opacity: ${c.opacity}%`,

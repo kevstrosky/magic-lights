@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronDown, Hash, Trash2 } from "lucide-react";
+import { ChevronDown, Hash, Minus } from "lucide-react";
 import {
   convertColor,
   formatOf,
@@ -145,7 +145,7 @@ export default function ColorField({
             aria-label={`Remove ${label}`}
             className="flex items-center gap-1 rounded px-1 py-0.5 text-[11px] text-ui-subtle transition-colors hover:bg-red-500/10 hover:text-red-400"
           >
-            <Trash2 size={12} />
+            <Minus size={12} />
             Remove
           </button>
         )}
