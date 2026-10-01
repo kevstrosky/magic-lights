@@ -2,24 +2,113 @@
 @tailwind components;
 @tailwind utilities;
 
+/* UI theme tokens. Dark is toggled with the `dark` class on <html>. */
 :root {
-  --foreground-rgb: 10, 10, 10;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  color-scheme: light;
+  /* Tailwind zinc scale: gray page, white panels, light-gray inputs. */
+  --ui-bg: #f4f4f5;
+  --ui-fg: #18181b;
+  --ui-panel: #ffffff;
+  --ui-surface: #f4f4f5;
+  --ui-surface-2: #e4e4e7;
+  --ui-divider: rgba(0, 0, 0, 0.08);
+  --ui-code: #fafafa;
+  --ui-active: #ffffff;
+  --ui-hover: #e4e4e7;
+  --ui-line: #e4e4e7;
+  --ui-subtle: #a1a1aa;
+  --ui-muted: #71717a;
+  --ui-soft: #3f3f46;
+  --ui-link: #7c3aed;
+  --ui-scroll: #dcdce0;
+  --ui-scroll-hover: #b4b4bb;
+  --ui-config: #ffffff;
+  --ui-codepanel: #ffffff;
+  --ui-menu: #ffffff;
+  --ui-fill: rgba(0, 0, 0, 0.06);
+  --picker-from: #f4f4f5;
+  --picker-to: #e4e4e7;
+  --picker-spot: rgba(255, 255, 255, 0.9);
+  --picker-hint: #a1a1aa;
+  --picker-bar: #d4d4d8;
+  --picker-bar-hover: #a1a1aa;
+  --picker-bar-active: #52525b;
+  --icon-frame: rgba(0, 0, 0, 0.04);
+  --icon-inner: #e4e4e7;
+  --icon-off: #d4d4d8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-    --background: 16, 16, 16;
-  }
+:root.dark {
+  color-scheme: dark;
+  --ui-bg: #101010;
+  --ui-fg: #ffffff;
+  --ui-panel: #161616;
+  --ui-surface: #232323;
+  --ui-surface-2: #3d3d3d;
+  --ui-divider: rgba(255, 255, 255, 0.07);
+  --ui-code: #0e0e0e;
+  --ui-active: #444444;
+  --ui-hover: #383838;
+  --ui-line: #333333;
+  --ui-subtle: #6f6f6f;
+  --ui-muted: #9d9d9d;
+  --ui-soft: #cfcfcf;
+  --ui-link: #b98bff;
+  --ui-scroll: #474747;
+  --ui-scroll-hover: #636363;
+  --ui-config: #2c2c2c;
+  --ui-codepanel: #2c2c2c;
+  --ui-menu: #232323;
+  --icon-frame: rgba(13, 13, 13, 0.2);
+  --icon-inner: #3c3c3c;
+  --icon-off: #5a5a5a;
+  --ui-fill: rgba(255, 255, 255, 0.06);
+  --picker-from: #3c3c3c;
+  --picker-to: #484848;
+  --picker-spot: rgba(255, 255, 255, 0.14);
+  --picker-hint: rgba(255, 255, 255, 0.3);
+  --picker-bar: rgba(255, 255, 255, 0.18);
+  --picker-bar-hover: rgba(255, 255, 255, 0.6);
+  --picker-bar-active: #ffffff;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background));
+  color: var(--ui-fg);
+  background: var(--ui-bg);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Thin themed scrollbars with no track background. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ui-scroll) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track,
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--ui-scroll);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--ui-scroll-hover);
+}
+
+/* Used by the live preview, matching the keyframes in the generated plain CSS. */
+@keyframes magic-light {
+  0%, 100% { background-position: left center; }
+  50% { background-position: right center; }
 }
 
 @layer utilities {

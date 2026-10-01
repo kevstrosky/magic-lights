@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -8,6 +9,24 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        ui: {
+          fg: "var(--ui-fg)",
+          panel: "var(--ui-panel)",
+          surface: "var(--ui-surface)",
+          code: "var(--ui-code)",
+          config: "var(--ui-config)",
+          codepanel: "var(--ui-codepanel)",
+          fill: "var(--ui-fill)",
+          active: "var(--ui-active)",
+          hover: "var(--ui-hover)",
+          line: "var(--ui-line)",
+          subtle: "var(--ui-subtle)",
+          muted: "var(--ui-muted)",
+          soft: "var(--ui-soft)",
+          link: "var(--ui-link)",
+        },
+      },
       animation: {
         text: "text 5s ease infinite",
       },

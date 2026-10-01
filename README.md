@@ -1,39 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Magic Lights
 
-## Getting Started
+A free tool to design glowing gradient borders for cards and copy the result as Tailwind CSS, plain CSS, or an AI prompt.
 
-First, run the development server:
+Made by [kevstrosky](https://kevinochoa.dev).
+
+## Features
+
+- Light on any side of the card (or all four as a ring), with bar size, thickness, blur, opacity and animation
+- Gradient colors as Tailwind names, hex, `rgb()`, `hsl()` or any CSS color
+- Card background, border and radius
+- Code output for Tailwind, plain CSS, and ready-to-paste AI prompts
+- Light and dark theme
+
+## Development
+
+Requires Node 18+ and pnpm 11.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Set `NEXT_PUBLIC_SITE_URL` to the public URL (for example `https://magiclights.kevinochoa.dev`). It's used for the canonical URL, sitemap, robots.txt and social preview images.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-Web resources I have used
-https://stackoverflow.com/questions/71506663/how-to-animate-text-gradient-color-change-in-tailwind
+```bash
+pnpm build
+pnpm start
+```

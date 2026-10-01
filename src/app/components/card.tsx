@@ -1,38 +1,73 @@
+import type { CSSProperties, ReactNode } from "react";
 import { Shuffle } from "lucide-react";
+import {
+  buildLight,
+  isLightColor,
+  toHex,
+  toStyle,
+  type LightConfig,
+} from "../lib/light";
 
-const Card = () => {
+type Props = {
+  config: LightConfig;
+  onRandom: () => void;
+  footer?: ReactNode;
+};
+
+const Card = ({ config, onRandom, footer }: Props) => {
+  const { lights, sharedCss, bodyCss } = buildLight(config);
+  // Text and button colors follow the card background so they stay readable.
+  const light = isLightColor(config.cardBg);
+  const titleColor = light ? "text-[#111111]" : "text-white";
+  const mutedColor = light ? "text-[#6B6B72]" : "text-[#9D9D9D]";
+  // Lets the button's hover gradient follow the current light colors.
+  const vars = {
+    "--light-from": toHex(config.colors[0]),
+    "--light-via": toHex(config.colors[Math.floor(config.colors.length / 2)]),
+    "--light-to": toHex(config.colors[config.colors.length - 1]),
+  } as CSSProperties;
+
   return (
-    <div>
-      <div className="bg-[#1C1C1C] p-4 relative z-20 border border-[#3A3A3A] rounded-md">
-        <h1 className="font-semibold z-20 text-lg text-white">Card example</h1>
-        <div className="py-48 gap-4 flex flex-col px-8">
-          <p className="font-medium text-sm text-[#9D9D9D]">
+    <div className="relative aspect-[9/16] w-full" style={vars}>
+      {lights.map((l) => (
+        <div key={l.name} style={toStyle([...sharedCss, ...l.css])}>
+          {l.inner && <div style={toStyle(l.inner.css)} />}
+        </div>
+      ))}
+      <div className="flex flex-col" style={toStyle(bodyCss)}>
+        <h1 className={`-mt-4 py-2.5 font-semibold text-lg ${titleColor}`}>
+          Card example
+        </h1>
+        <div className="flex flex-1 flex-col items-center justify-center gap-4 px-4 text-center">
+          <p className={`font-medium text-sm ${mutedColor}`}>
             You can create new colors examples
           </p>
           {/*TO DO LATER: CHANGE ALL FONTS TO INTER. USE RALEWAY FOR THE TITLES*/}
-          <div className="flex justify-center">
-            <button className="px-4 pt-2 group transition-colors hover:bg-[#3A3A3A] duration-300 ease-in-out pb-2 border-b-8 hover:border-[#2C2C2C] border-[#3A3A3A] flex flex-row gap-4 bg-[#2C2C2C] rounded-[4px]">
-              <Shuffle
-                strokeWidth={1}
-                className="font-semibold 
-            group-hover:bg-gradient-to-r group-hover:bg-clip-content group-hover:stroke-transparent transition-colors ease-in-out duration-300 
-            group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-indigo-500
-            group-hover:animate-text"
-              />
-              <span
-                className="font-semibold 
-            group-hover:bg-gradient-to-r group-hover:bg-clip-text  text-white group-hover:text-transparent transition-colors ease-in-out duration-300 
-            group-hover:from-indigo-500 group-hover:via-purple-500 group-hover:to-indigo-500
-            group-hover:animate-text
-            "
-              >
-                Random colors
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={onRandom}
+            className={`px-3 py-1.5 group transition-colors duration-300 ease-in-out border-b-4 flex flex-row items-center gap-2 rounded-[4px] ${
+              light
+                ? "bg-[#F1F1F3] border-[#D9D9DE] hover:bg-[#E7E7EA] hover:border-[#F1F1F3]"
+                : "bg-[#2C2C2C] border-[#3A3A3A] hover:bg-[#3A3A3A] hover:border-[#2C2C2C]"
+            }`}
+          >
+            <Shuffle
+              size={16}
+              strokeWidth={1.5}
+              className={`${titleColor} transition-colors duration-300 group-hover:text-[color:var(--light-via)]`}
+            />
+            <span
+              className={`text-sm font-semibold
+            group-hover:bg-gradient-to-r group-hover:bg-clip-text ${titleColor} group-hover:text-transparent transition-colors ease-in-out duration-300
+            group-hover:from-[color:var(--light-from)] group-hover:via-[color:var(--light-via)] group-hover:to-[color:var(--light-to)]
+            group-hover:animate-text`}
+            >
+              Random colors
+            </span>
+          </button>
         </div>
+        {footer && <div className={`pb-1 ${mutedColor}`}>{footer}</div>}
       </div>
-      <div className="w-full animate-text relative z-0 h-1 bg-gradient-to-r blur from-indigo-500 via-purple-500 to-red-500"></div>
     </div>
   );
 };
