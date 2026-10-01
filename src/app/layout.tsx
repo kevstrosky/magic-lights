@@ -19,6 +19,7 @@ export const metadata: Metadata = {
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
+  icons: { icon: "/magic-lights-icon.svg" },
   keywords: [
     "tailwind css",
     "glow border generator",

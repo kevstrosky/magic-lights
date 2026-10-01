@@ -1,0 +1,14 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="48" height="48" rx="4" fill="#0A0A0A"/>
+<rect opacity="0.3" x="8" y="8" width="32" height="32" rx="2" fill="url(#paint0_linear_2012_13)"/>
+<path d="M42 16C42 15.4477 42.4477 15 43 15C43.5523 15 44 15.4477 44 16V30C44 30.5523 43.5523 31 43 31C42.4477 31 42 30.5523 42 30V16Z" fill="#3A3A3A"/>
+<path d="M31 42C31.5523 42 32 42.4477 32 43C32 43.5523 31.5523 44 31 44H17C16.4477 44 16 43.5523 16 43C16 42.4477 16.4477 42 17 42H31Z" fill="white"/>
+<path d="M31 4C31.5523 4 32 4.44772 32 5C32 5.55228 31.5523 6 31 6L17 6C16.4477 6 16 5.55228 16 5C16 4.44772 16.4477 4 17 4L31 4Z" fill="#3A3A3A"/>
+<path d="M6 30C6 30.5523 5.55228 31 5 31C4.44772 31 4 30.5523 4 30V16C4 15.4477 4.44772 15 5 15C5.55228 15 6 15.4477 6 16V30Z" fill="white"/>
+<defs>
+<linearGradient id="paint0_linear_2012_13" x1="24" y1="8" x2="24" y2="40" gradientUnits="userSpaceOnUse">
+<stop stop-color="#626262"/>
+<stop offset="1" stop-color="#C8C8C8"/>
+</linearGradient>
+</defs>
+</svg>
